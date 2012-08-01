@@ -37,20 +37,20 @@ module.exports = function (app, models) {
         res.header('Access-Control-Allow-Origin', '*');
         var participant;
         console.log("POST participant: ");
-        console.log(req.body);
         participant = new models.participant({
             firstname:req.body.firstname,
             lastname:req.body.lastname
         });
         participant.save(function (err) {
             if (!err) {
-                return console.log("participant " + participant.firstname + " " + participant.lastname + " created");
+                console.log("participant " + participant.firstname + " " + participant.lastname + " created");
+                return res.send(participant);
             } else {
-                return console.log(err);
-                return res.send("Cannot post participant with body: " + req.body);
+                console.log("Cannot post participant with body: " + req.body);
+                return res.send("Cannot post participant with body: " + req.body, null, 400);
             }
         });
-        return res.send(participant);
+
     });
 
     app.get('/api/participant/:id', function (req, res) {
