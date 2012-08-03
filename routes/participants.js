@@ -37,7 +37,7 @@ module.exports = function (app, models) {
                 return res.send(participant);
             } else {
                 console.log("Cannot post participant with body: " + req.body);
-                return res.send("Cannot post participant with body: " + req.body, null, 400);
+                return res.send("Cannot post participant with body: " + req.body, par, 400);
             }
         });
 
@@ -199,16 +199,17 @@ module.exports = function (app, models) {
     app.put('/api/participant/:id', function (req, res) {
         console.log("PUT participant: " + req.params.id + ": ");
         console.log(req.body);
-        return models.participant.findById(req.params.id, function (err, participant) {
+        models.participant.findById(req.params.id, function (err, participant) {
             participant.firstname = req.body.firstname;
             participant.lastname = req.body.lastname;
             return participant.save(function (err) {
                 if (!err) {
                     console.log("participant " + req.params.id + " updated");
+                    return res.send(participant);
                 } else {
                     console.log(err);
+                    return res.send("cannot update participant: " + req.params.id, null, 400);
                 }
-                return res.send(participant);
             });
         });
     });
