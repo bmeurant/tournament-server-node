@@ -37,7 +37,7 @@ module.exports = function (app, models) {
                 return res.send(participant);
             } else {
                 console.log("Cannot post participant with body: " + req.body);
-                return res.send("Cannot post participant with body: " + req.body, par, 400);
+                return res.send("Cannot post participant with body: " + req.body, null, 400);
             }
         });
 

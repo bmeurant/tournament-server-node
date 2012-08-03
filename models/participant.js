@@ -10,7 +10,8 @@ module.exports = function (mongoose) {
 
     var Participant = new Schema({
         firstname:{ type:String, required:true },
-        lastname:{ type:String, required:true }
+        lastname:{ type:String, required:true },
+        email:{ type:String, lowercase: true, match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ }
     });
 
     Participant.methods.toJSON = function () {
