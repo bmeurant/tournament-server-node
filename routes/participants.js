@@ -9,15 +9,6 @@ util = require('util');
 
 module.exports = function (app, models) {
 
-    app.options('*', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
-
-        res.end('');
-    });
-
     app.get('/api', function (req, res) {
         res.send('App is running');
     });
@@ -34,7 +25,6 @@ module.exports = function (app, models) {
     });
 
     app.post('/api/participant', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
         var participant;
         console.log("POST participant: ");
         participant = new models.participant({
@@ -54,7 +44,6 @@ module.exports = function (app, models) {
     });
 
     app.get('/api/participant/:id', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
         return models.participant.findById(req.params.id, function (err, participant) {
             if (participant != null) {
                 return res.send(participant);
@@ -66,7 +55,6 @@ module.exports = function (app, models) {
     });
 
     app.post('/api/participant/:id/photo', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
 
         var isError = false;
         var responseError, status, picture_url;
@@ -122,7 +110,6 @@ module.exports = function (app, models) {
     });
 
     function getPhoto(req, res, type) {
-        res.header('Access-Control-Allow-Origin', '*');
         res.header('Accept-Ranges', 'bytes');
         models.participant.findById(req.params.id, function (err, participant) {
 
@@ -173,7 +160,6 @@ module.exports = function (app, models) {
     }
 
     app.delete('/api/participant/:id/photo', function (req, res) {
-            res.header('Access-Control-Allow-Origin', '*');
             var img;
             var isError = false;
             var responseError, status, picture_url;
@@ -211,7 +197,6 @@ module.exports = function (app, models) {
     ;
 
     app.put('/api/participant/:id', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
         console.log("PUT participant: " + req.params.id + ": ");
         console.log(req.body);
         return models.participant.findById(req.params.id, function (err, participant) {
@@ -229,7 +214,6 @@ module.exports = function (app, models) {
     });
 
     app.delete('/api/participant/:id', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
         return models.participant.findById(req.params.id, function (err, participant) {
             if (participant != null) {
                 return participant.remove(function (err) {
