@@ -13,13 +13,13 @@ module.exports = function (app, models) {
         res.send('App is running');
     });
 
-    app.get('/api/participants', function (req, res) {
+    app.get('/api/participants*', function (req, res) {
         res.header('Access-Control-Allow-Origin', '*');
         return models.participant.find(function (err, participants) {
             if (!err) {
                 return res.send(participants);
             } else {
-                return console.log(err);
+                return res.send("Cannot fetch participants", null, 400);
             }
         });
     });
@@ -29,7 +29,8 @@ module.exports = function (app, models) {
         console.log("POST participant: ");
         participant = new models.participant({
             firstname:req.body.firstname,
-            lastname:req.body.lastname
+            lastname:req.body.lastname,
+            email:req.body.email == '' ? null : req.body.email
         });
         participant.save(function (err) {
             if (!err) {
@@ -202,6 +203,7 @@ module.exports = function (app, models) {
         models.participant.findById(req.params.id, function (err, participant) {
             participant.firstname = req.body.firstname;
             participant.lastname = req.body.lastname;
+            participant.email = req.body.email == '' ? null : req.body.email;
             return participant.save(function (err) {
                 if (!err) {
                     console.log("participant " + req.params.id + " updated");
