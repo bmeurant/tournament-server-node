@@ -3,8 +3,10 @@
  */
 
 var express = require('express');
+var mongoose = require('mongoose');
+var pagination = require('mongoose-query-paginate');
 var app = module.exports = express.createServer();
-app.mongoose = require('mongoose');
+app.mongoose = mongoose;
 
 var config = require('./config.js')(app, express);
 

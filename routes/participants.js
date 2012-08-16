@@ -6,6 +6,7 @@
 
 fs = require('fs');
 util = require('util');
+url = require('url');
 
 module.exports = function (app, models) {
 
@@ -13,13 +14,36 @@ module.exports = function (app, models) {
         res.send('App is running');
     });
 
-    app.get('/api/participants*', function (req, res) {
-        res.header('Access-Control-Allow-Origin', '*');
-        return models.participant.find(function (err, participants) {
-            if (!err) {
-                return res.send(participants);
-            } else {
-                return res.send("Cannot fetch participants", null, 400);
+    app.get('/api/participants*', function (request, response) {
+
+        var url_parts = url.parse(request.url, true);
+        var params = url_parts.query;
+
+        response.header('Access-Control-Allow-Origin', '*');
+        var options = {
+            perPage:params.perPage || 10,
+            delta:params.delta || 0,
+            page:params.page || 1
+        };
+        var query = models.participant.find();
+        query.paginate(options, function (err, res) {
+            if (err) {
+                return response.send("Cannot fetch participants", null, 400);
+            }
+            else {
+                var page = {}
+                page.content = res.results;
+                page.number = res.current;
+                page.numberOfElements = res.results ? res.results.length : 0;
+                page.totalElements = res.count;
+                page.totalPages = res.last;
+                page.hasContent = res.results && res.results.length > 0;
+                page.hasNextPage = res.next != null;
+                page.hasPreviousPage = res.prev != null;
+                page.isFirstPage = res.prev == null;
+                page.isLastPage = res.next == null;
+
+                return response.send(page);
             }
         });
     });
