@@ -2,10 +2,6 @@
 { "firstname" : "Loïc", "lastname" : "Frering", "email": "test@test.fr", "_id" : { "$oid" : "50093e5a2fd5b24013000004" } }
 { "firstname" : "Sébastien", "lastname" : "Deleuze", "email": "test@test.fr", "_id" : { "$oid" : "50093e6b2fd5b24013000005" } }
 { "firstname" : "Nicolas", "lastname" : "Carlier", "email": "test@test.fr", "_id" : { "$oid" : "50093e752fd5b24013000006" } }
-{ "firstname" : "Silvère", "lastname" : "Dusserre", "email": "test@test.fr", "_id" : { "$oid" : "50093ea92fd5b2401300000f" } }
-{ "firstname" : "Damien", "lastname" : "Dherret", "email": "test@test.fr", "_id" : { "$oid" : "50093eb32fd5b24013000010" } }
-{ "firstname" : "Christophe", "lastname" : "Lampin", "email": "test@test.fr", "_id" : { "$oid" : "50093ec12fd5b24013000011" } }
-{ "firstname" : "Arnaud", "lastname" : "Duquenne", "email": "test@test.fr", "_id" : { "$oid" : "50093ed02fd5b24013000012" } }
 { "firstname" : "aa", "lastname" : "aa", "email": "test@test.fr"}
 { "firstname" : "bb", "lastname" : "bb", "email": "test@test.fr"}
 { "firstname" : "cc", "lastname" : "cc", "email": "test@test.fr"}
