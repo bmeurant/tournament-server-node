@@ -14,7 +14,7 @@ module.exports = function (app, models) {
         res.send('App is running');
     });
 
-    app.get('/api/participants*', function (request, response) {
+    app.get('/api/participant', function (request, response) {
 
         var url_parts = url.parse(request.url, true);
         var params = url_parts.query;
