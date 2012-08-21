@@ -14,14 +14,14 @@ module.exports = function (app, models) {
         res.send('App is running');
     });
 
-    app.get('/api/participant', function (request, response) {
+    app.get('/api/participant/search', function (request, response) {
 
         var url_parts = url.parse(request.url, true);
         var params = url_parts.query;
 
         response.header('Access-Control-Allow-Origin', '*');
         var options = {
-            perPage:params.perPage || 10,
+            perPage:params.size || 10,
             delta:params.delta || 0,
             page:params.page || 1
         };
