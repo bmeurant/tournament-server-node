@@ -16,10 +16,10 @@ module.exports = function (mongoose) {
 
     Participant.methods.toJSON = function () {
         var obj = this.toObject();
-        var picture_url = this.getPictureUrl();
-        if (picture_url) {
-            obj.picture_url = "/participant/" + this.id + "/photo";
-            obj.pict_min = "/participant/" + this.id + "/min-photo";
+        var pictureUrl = this.getPictureUrl();
+        if (pictureUrl) {
+            obj.pictureUrl = "/participant/" + this.id + "/photo";
+            obj.pictMin = "/participant/" + this.id + "/min-photo";
         }
         obj.id =    this.id;
         return obj;

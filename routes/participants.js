@@ -82,7 +82,7 @@ module.exports = function (app, models) {
     app.post('/api/participant/:id/photo', function (req, res) {
 
         var isError = false;
-        var responseError, status, picture_url;
+        var responseError, status, pictureUrl;
 
         models.participant.findById(req.params.id, function (err, participant) {
 
@@ -98,15 +98,15 @@ module.exports = function (app, models) {
                     isError = true
                 }
                 else {
-                    picture_url = participant.getPictureUrl();
+                    pictureUrl = participant.getPictureUrl();
                 }
             }
 
             if (isError) {
                 return res.send(responseError, null, status);
             }
-            if (picture_url) {
-                fs.unlink(picture_url);
+            if (pictureUrl) {
+                fs.unlink(pictureUrl);
             }
             var ins, ous, type;
             ins = fs.createReadStream(req.files.file.path);
@@ -140,7 +140,7 @@ module.exports = function (app, models) {
 
             var img;
             var isError = false;
-            var responseError, status, picture_url;
+            var responseError, status, pictureUrl;
 
             if (err) {
                 responseError = err.message;
@@ -155,9 +155,9 @@ module.exports = function (app, models) {
                 }
                 else {
 
-                    picture_url = participant.getPictureUrl();
+                    pictureUrl = participant.getPictureUrl();
 
-                    if (!picture_url) {
+                    if (!pictureUrl) {
                         responseError = "Cannot find any photo for participant with id: " + req.params.id;
                         status = 404;
                         isError = true
@@ -168,9 +168,9 @@ module.exports = function (app, models) {
             if (isError) {
                 return res.send(responseError, null, status);
             }
-            img = fs.readFileSync(picture_url);
+            img = fs.readFileSync(pictureUrl);
 
-            var imgType = (picture_url.substring(picture_url.lastIndexOf('.') + 1, picture_url.length));
+            var imgType = (pictureUrl.substring(pictureUrl.lastIndexOf('.') + 1, pictureUrl.length));
 
             if ((type != null) && (type == 'min')) {
                 res.header('Cache-Control', 'public, max-age=3600');
@@ -187,7 +187,7 @@ module.exports = function (app, models) {
     app.delete('/api/participant/:id/photo', function (req, res) {
             var img;
             var isError = false;
-            var responseError, status, picture_url;
+            var responseError, status, pictureUrl;
 
             models.participant.findById(req.params.id, function (err, participant) {
 
@@ -203,15 +203,15 @@ module.exports = function (app, models) {
                         isError = true
                     }
                     else {
-                        picture_url = participant.getPictureUrl();
+                        pictureUrl = participant.getPictureUrl();
                     }
                 }
 
                 if (isError) {
                     return res.send(responseError, null, status);
                 }
-                if (picture_url) {
-                    fs.unlink(picture_url);
+                if (pictureUrl) {
+                    fs.unlink(pictureUrl);
                 }
 
             });
